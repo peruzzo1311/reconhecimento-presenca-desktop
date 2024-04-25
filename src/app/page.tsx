@@ -6,12 +6,23 @@ import { FormEvent, useState } from 'react'
 import toast from 'react-hot-toast'
 
 import logo from '@/assets/icon.png'
+import { useUserStore } from '@/store/user'
+import { useRouter } from 'next/navigation'
 
 export default function Home() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+
+  const { user, setUser } = useUserStore()
+  const router = useRouter()
+
+  if (user) {
+    router.push('/home')
+
+    return
+  }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     try {
@@ -29,7 +40,12 @@ export default function Home() {
 
       const user = await res.json()
 
-      console.log(user)
+      if (user) {
+        setUser(user)
+        router.push('/home')
+
+        return
+      }
     } catch (error) {
       console.error(error)
     } finally {
