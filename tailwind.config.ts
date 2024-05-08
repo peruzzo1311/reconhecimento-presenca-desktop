@@ -11,7 +11,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      primary: '#0171BB',
+      colors: {
+        primary: '#0171BB',
+      },
     },
   },
   darkMode: 'class',

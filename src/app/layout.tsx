@@ -16,10 +16,7 @@ export default function RootLayout({ children }: Props) {
       suppressHydrationWarning
     >
       <body
-        className={cn(
-          inter.className,
-          'antialiased bg-neutral-100 text-neutral-950'
-        )}
+        className={cn(inter.className, 'antialiased bg-white text-neutral-950')}
       >
         <Providers>{children}</Providers>
       </body>

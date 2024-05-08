@@ -1,5 +1,6 @@
 'use client'
 
+import CameraDialog from '@/components/camera-dialog'
 import { NextUIProvider } from '@nextui-org/react'
 import { Toaster } from 'react-hot-toast'
 
@@ -11,6 +12,8 @@ export default function Providers({ children }: props) {
   return (
     <NextUIProvider>
       <Toaster />
+
+      <CameraDialog />
 
       {children}
     </NextUIProvider>

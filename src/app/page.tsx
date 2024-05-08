@@ -2,7 +2,7 @@
 'use client'
 
 import { Button, Checkbox, Input } from '@nextui-org/react'
-import { FormEvent, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 
 import logo from '@/assets/icon.png'
@@ -18,11 +18,11 @@ export default function Home() {
   const { user, setUser } = useUserStore()
   const router = useRouter()
 
-  if (user) {
-    router.push('/home')
-
-    return
-  }
+  useEffect(() => {
+    if (user) {
+      router.replace('/home')
+    }
+  }, [user, router])
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     try {
@@ -31,6 +31,8 @@ export default function Home() {
 
       if (!username || !password) {
         toast.error('Preencha todos os campos')
+
+        return
       }
 
       const res = await fetch('/api/login', {
@@ -42,7 +44,7 @@ export default function Home() {
 
       if (user) {
         setUser(user)
-        router.push('/home')
+        router.replace('/training-list')
 
         return
       }
